@@ -11,7 +11,7 @@ public class Fifteen {
         this.board = board;
     }
 
-    public void Solver () {
+    public void Solve() {
         //set initial conditions
         solverBoards = new ArrayList<>();
         ArrayList<Integer> weights = new ArrayList<>();
