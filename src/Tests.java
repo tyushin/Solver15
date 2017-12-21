@@ -49,7 +49,7 @@ public class Tests {
         Board test = new Board(testBoard);
 
         Assert.assertEquals(5, test.getWeight());
-        Assert.assertEquals(2, test.move(4,8,-1).getWeight());
+        Assert.assertEquals(2, test.move(4,8).getWeight());
     }
 
     @Test
@@ -71,7 +71,7 @@ public class Tests {
         Board test = new Board(testBoard);
         int[] resultPositions = {1, 0, 2, 8, 6, 3, 5, 7, 4};
         Board result = new Board(resultPositions);
-        Assert.assertEquals(result, test.move(1,4,-1));
+        Assert.assertEquals(result, test.move(1,4));
     }
 
     @Test

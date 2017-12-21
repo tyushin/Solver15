@@ -11,10 +11,10 @@ public class Solver {
     }
     private void Solve(){
         //set initial conditions
-        solverBoards = new LinkedList<>();
+        solverBoards = new ArrayList<>();
         Queue<Board> unverified = new PriorityQueue<>(boardComparator);
         unverified.add(board);
-        List<Board> history  = new LinkedList<>();
+        Set<Board> history  = new HashSet<>();
 
         while (true){
             //find the next board to check
@@ -23,11 +23,9 @@ public class Solver {
             //check for solution
             if (currentBoard.isRight()){
                 solverBoards.add(currentBoard);
-                int nextIndex = currentBoard.getParentId();
-                while (nextIndex != -1) {
-                    currentBoard = history.get(nextIndex);
+                while (currentBoard.getParentBoard() != null) {
+                    currentBoard = currentBoard.getParentBoard();
                     solverBoards.add(currentBoard);
-                    nextIndex = currentBoard.getParentId();
                 }
                 //output correct moves
                 for (int i = solverBoards.size() - 1; i >= 0; i--){
@@ -38,19 +36,19 @@ public class Solver {
             int emptyCell = currentBoard.getEmptyCellIndex();
             //up
             if (emptyCell / scale > 0){
-                unverified.add(currentBoard.move(emptyCell,emptyCell - scale, history.size() - 1));
+                unverified.add(currentBoard.move(emptyCell,emptyCell - scale));
             }
             //down
             if (emptyCell / scale < scale - 1){
-                unverified.add(currentBoard.move(emptyCell,emptyCell + scale, history.size() - 1));
+                unverified.add(currentBoard.move(emptyCell,emptyCell + scale));
             }
             //left
             if (emptyCell % scale > 0){
-                unverified.add(currentBoard.move(emptyCell,emptyCell - 1, history.size() - 1));
+                unverified.add(currentBoard.move(emptyCell,emptyCell - 1));
             }
             //right
             if (emptyCell % scale < scale - 1){
-                unverified.add(currentBoard.move(emptyCell,emptyCell + 1, history.size() - 1));
+                unverified.add(currentBoard.move(emptyCell,emptyCell + 1));
             }
         }
     }

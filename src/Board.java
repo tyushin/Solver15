@@ -4,32 +4,32 @@ public class Board {
     private int weight;
     private int emptyCellIndex;
     private int depth;
-    private int parentId;
+    private Board parentBoard;
 
     public Board(int[] positions){
         this.positions = positions;
         this.scale = (int) Math.sqrt(positions.length);
         this.emptyCellIndex = findEmptyCellIndex();
-        this.parentId = -1;
+        this.parentBoard = null;
         this.depth = 0;
         this.weight = findWeight();
     }
 
-    public Board(int[] positions, int parentId, int depth){
+    public Board(int[] positions, Board parentBoard, int depth){
         this.positions = positions;
         this.scale = (int) Math.sqrt(positions.length);
         this.emptyCellIndex = findEmptyCellIndex();
-        this.parentId = parentId;
+        this.parentBoard = parentBoard;
         this.depth = depth;
         this.weight = findWeight() + depth;
     }
 
-    public Board move(int from, int to, int parentId){
+    public Board move(int from, int to){
         int[] newPosition = positions.clone();
         int fromValue = newPosition[from];
         newPosition[from] = newPosition[to];
         newPosition[to] = fromValue;
-        return new Board(newPosition, parentId, depth+1);
+        return new Board(newPosition, this, depth+1);
     }
 
     private int findWeight(){
@@ -82,8 +82,8 @@ public class Board {
         return positions;
     }
 
-    public int getParentId(){
-        return parentId;
+    public Board getParentBoard(){
+        return parentBoard;
     }
 
     public int getLength(){
