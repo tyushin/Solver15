@@ -36,19 +36,31 @@ public class Solver {
             int emptyCell = currentBoard.getEmptyCellIndex();
             //up
             if (emptyCell / scale > 0){
-                unverified.add(currentBoard.move(emptyCell,emptyCell - scale));
+                Board b = currentBoard.move(emptyCell,emptyCell - scale);
+                if (!history.contains(b)){
+                    unverified.add(b);
+                }
             }
             //down
             if (emptyCell / scale < scale - 1){
-                unverified.add(currentBoard.move(emptyCell,emptyCell + scale));
+                Board b = currentBoard.move(emptyCell,emptyCell + scale);
+                if (!history.contains(b)){
+                    unverified.add(b);
+                }
             }
             //left
             if (emptyCell % scale > 0){
-                unverified.add(currentBoard.move(emptyCell,emptyCell - 1));
+                Board b = currentBoard.move(emptyCell,emptyCell - 1);
+                if (!history.contains(b)){
+                    unverified.add(b);
+                }
             }
             //right
             if (emptyCell % scale < scale - 1){
-                unverified.add(currentBoard.move(emptyCell,emptyCell + 1));
+                Board b = currentBoard.move(emptyCell,emptyCell + 1);
+                if (!history.contains(b)){
+                    unverified.add(b);
+                }
             }
         }
     }
